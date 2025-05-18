@@ -3,58 +3,585 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Renda Online com Segurança - Acertos Club e Tiger Club</title>
-
-  <!-- SEO básico invisível -->
-  <meta name="description" content="Aprenda como ter uma renda online 100% legal e segura com Aguia Oficial.">
-  <meta name="keywords" content="renda extra, renda online, trabalhar em casa, método online, marketing digital, aguiaoficial.store">
-  <meta name="robots" content="index, follow" />
-
-  <!-- Ícone de atalho (favicon) -->
-  <link rel="icon" type="image/png" href="https://png.pngtree.com/png-clipart/20231108/original/pngtree-tiger-head-logo-design-png-image_13517862.png" />
-
+  <title>TIGER CLUB</title>
+  <meta name="description" content="Tiger Club Oficial - Jogos, Palpites e Suporte" />
+  <meta name="keywords" content="tiger club, jogos, palpites, cassino, suporte" />
+  <link rel="icon" href="icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    html, body {
+    body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
+      font-family: 'Roboto', sans-serif;
+      background: #f4f6f8;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #1a1a1a;
     }
-
-    iframe {
-      border: none;
+    header {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+    header img {
+      height: 34px;
+      margin-right: 8px;
+    }
+    header h1 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    #main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 50px;
+    }
+    #jogar, #palpites {
       width: 100%;
       height: 100%;
     }
-
-    .whatsapp-float {
+    iframe {
+      width: 100%;
+      height: calc(100vh - 100px);
+      border: none;
+    }
+    #palpites {
+      display: none;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      margin: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    footer {
+      background: #ffffff;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      border-top: 1px solid #e0e0e0;
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08);
     }
-
-    .whatsapp-float img {
-      width: 60px;
-      height: 60px;
+    footer button {
+      background: none;
+      border: none;
+      font-size: 13px;
       cursor: pointer;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.2s;
     }
-
-    /* Remove highlight from image when clicked */
-    .whatsapp-float img:active {
-      opacity: 0.8;
+    footer button:hover, footer button:active {
+      color: #222;
+    }
+    select, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 14px;
+      width: 100%;
+      margin: 10px 0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    select:focus, button:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+      outline: none;
+    }
+    button {
+      background: #f59e0b;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #d97706;
+    }
+    button.green {
+      background: #10b981;
+    }
+    button.green:hover {
+      background: #059669;
+    }
+    button:disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+    }
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .section {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f9fafb;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .palpite-result, .puxadas {
+      margin: 15px 0;
+      padding: 15px;
+      background: #f9fafb;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .milhares {
+      margin-bottom: 10px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #puxada-img {
+      margin-top: 15px;
+      width: 100%;
+      max-height: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #f59e0b;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h3 {
+      color: #374151;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    ul {
+      list-style: disc;
+      padding-left: 20px;
+      margin: 0;
+      font-size: 14px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: #ef4444;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+    .loading {
+      font-size: 14px;
+      color: #374151;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="icon.png" alt="Icon" />
+    <h1>TIGER CLUB OFICIAL</h1>
+  </header>
 
-  <!-- IFRAME com o site de fundo -->
-  <iframe src="https://app.tigersclub.vip/pr/hOprBfRL" allowfullscreen></iframe>
+  <div id="main-content">
+    <div id="jogar">
+      <iframe src="https://app.tigersclub.vip/pr/hOprBfRL"></iframe>
+    </div>
+    <div id="palpites">
+      <div class="section">
+        <h2>Gerar Palpites</h2>
+        <label for="bancaSelect">Escolha a Banca:</label>
+        <select id="bancaSelect">
+          <option value="">Selecione uma banca</option>
+          <option value="PT Rio">PT Rio</option>
+          <option value="Look GO">Look GO</option>
+          <option value="Nacional">Nacional</option>
+          <option value="Maluca BA">Maluca BA</option>
+          <option value="Lotep">Lotep</option>
+        </select>
+        <button id="gerarPalpites">Gerar Palpites</button>
+        <div class="palpite-result" id="palpites"></div>
+      </div>
 
-  <!-- Botão flutuante do WhatsApp -->
-  <a class="whatsapp-float" href="https://chat.whatsapp.com/L4tf40onhBy1riWW8pqkw4" target="_blank" aria-label="Entrar no grupo do WhatsApp">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-  </a>
+      <div class="section">
+        <h2>Consultar Puxadas</h2>
+        <label for="animalSelect">Escolha um Animal:</label>
+        <select id="animalSelect">
+          <option value="">Selecione um animal</option>
+        </select>
+        <button id="verPuxada" class="hidden">Ver Puxadas</button>
+        <div class="puxadas" id="puxadaResult"></div>
+      </div>
+      <img src="pa.png" id="puxada-img" alt="Puxada" />
+    </div>
+  </div>
+
+  <footer>
+    <button onclick="window.open('https://wa.me/5583991177252?text=Suporte%2C+preciso+de+ajuda', '_blank')">Fale com o Suporte</button>
+    <button onclick="window.open('https://app.tigersclub.vip/pr/hOprBfRL', '_blank')">Cassino</button>
+    <button onclick="mostrar('jogar')">Jogar</button>
+    <button onclick="mostrar('palpites')">Palpites</button>
+  </footer>
+
+  <script>
+    const animals = [
+      { name: 'Avestruz', emoji: '🦢', group: 1, tens: ['01', '02', '03', '04'] },
+      { name: 'Águia', emoji: '🦅', group: 2, tens: ['05', '06', '07', '08'] },
+      { name: 'Burro', emoji: '🦙', group: 3, tens: ['09', '10', '11', '12'] },
+      { name: 'Borboleta', emoji: '🦋', group: 4, tens: ['13', '14', '15', '16'] },
+      { name: 'Cachorro', emoji: '🐶', group: 5, tens: ['17', '18', '19', '20'] },
+      { name: 'Cabra', emoji: '🐐', group: 6, tens: ['21', '22', '23', '24'] },
+      { name: 'Carneiro', emoji: '🐏', group: 7, tens: ['25', '26', '27', '28'] },
+      { name: 'Camelo', emoji: '🐪', group: 8, tens: ['29', '30', '31', '32'] },
+      { name: 'Cobra', emoji: '🐍', group: 9, tens: ['33', '34', '35', '36'] },
+      { name: 'Coelho', emoji: '🐰', group: 10, tens: ['37', '38', '39', '40'] },
+      { name: 'Cavalo', emoji: '🐎', group: 11, tens: ['41', '42', '43', '44'] },
+      { name: 'Elefante', emoji: '🐘', group: 12, tens: ['45', '46', '47', '48'] },
+      { name: 'Galo', emoji: '🐓', group: 13, tens: ['49', '50', '51', '52'] },
+      { name: 'Gato', emoji: '🐱', group: 14, tens: ['53', '54', '55', '56'] },
+      { name: 'Jacaré', emoji: '🐊', group: 15, tens: ['57', '58', '59', '60'] },
+      { name: 'Leão', emoji: '🦁', group: 16, tens: ['61', '62', '63', '64'] },
+      { name: 'Macaco', emoji: '🐒', group: 17, tens: ['65', '66', '67', '68'] },
+      { name: 'Porco', emoji: '🐷', group: 18, tens: ['69', '70', '71', '72'] },
+      { name: 'Pavão', emoji: '🦚', group: 19, tens: ['73', '74', '75', '76'] },
+      { name: 'Peru', emoji: '🦃', group: 20, tens: ['77', '78', '79', '80'] },
+      { name: 'Touro', emoji: '🐂', group: 21, tens: ['81', '82', '83', '84'] },
+      { name: 'Tigre', emoji: '🐅', group: 22, tens: ['85', '86', '87', '88'] },
+      { name: 'Urso', emoji: '🐻', group: 23, tens: ['89', '90', '91', '92'] },
+      { name: 'Veado', emoji: '🦌', group: 24, tens: ['93', '94', '95', '96'] },
+      { name: 'Vaca', emoji: '🐄', group: 25, tens: ['97', '98', '99', '00'] }
+    ];
+
+    const bancas = {
+      'PT Rio': {
+        schedules: {
+          'Domingo': ['09:30', '11:30', '14:30', '16:30'],
+          'Segunda': ['09:30', '11:30', '14:30', '16:30', '18:30', '21:30'],
+          'Terça': ['09:30', '11:30', '14:30', '16:30', '18:30', '21:30'],
+          'Quarta': ['09:30', '11:30', '14:30', '16:30', '19:00', '21:30'],
+          'Quinta': ['09:30', '11:30', '14:30', '16:30', '18:30', '21:30'],
+          'Sexta': ['09:30', '11:30', '14:30', '16:30', '18:30', '21:30'],
+          'Sábado': ['09:30', '11:30', '14:30', '16:30', '19:00', '21:30']
+        }
+      },
+      'Look GO': {
+        schedules: {
+          'Domingo': ['09:00', '11:00', '14:00', '16:00', '18:00', '21:00'],
+          'Segunda': ['09:00', '11:00', '14:00', '16:00', '18:00', '21:00'],
+          'Terça': ['09:00', '11:00', '14:00', '16:00', '18:00', '21:00'],
+          'Quarta': ['09:00', '11:00', '14:00', '16:00', '18:00', '19:00', '21:00'],
+          'Quinta': ['09:00', '11:00', '14:00', '16:00', '18:00', '21:00'],
+          'Sexta': ['09:00', '11:00', '14:00', '16:00', '18:00', '21:00'],
+          'Sábado': ['09:00', '11:00', '14:00', '16:00', '18:00', '19:00', '21:00']
+        }
+      },
+      'Nacional': {
+        schedules: {
+          'Domingo': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00'],
+          'Segunda': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00'],
+          'Terça': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00'],
+          'Quarta': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00'],
+          'Quinta': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00'],
+          'Sexta': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00'],
+          'Sábado': ['02:00', '08:00', '10:00', '12:00', '15:00', '17:00', '20:00', '23:00']
+        }
+      },
+      'Maluca BA': {
+        schedules: {
+          'Domingo': ['10:00', '12:00', '15:00'],
+          'Segunda': ['10:00', '12:00', '15:00', '19:00', '21:00'],
+          'Terça': ['10:00', '12:00', '15:00', '19:00', '21:00'],
+          'Quarta': ['10:00', '12:00', '15:00', '19:00', '21:00'],
+          'Quinta': ['10:00', '12:00', '15:00', '19:00', '21:00'],
+          'Sexta': ['10:00', '12:00', '15:00', '19:00', '21:00'],
+          'Sábado': ['10:00', '12:00', '15:00', '19:00', '21:00']
+        }
+      },
+      'Lotep': {
+        schedules: {
+          'Domingo': ['10:45', '12:45'],
+          'Segunda': ['10:45', '12:45', '15:45', '18:00'],
+          'Terça': ['10:45', '12:45', '15:45', '18:00'],
+          'Quarta': ['10:45', '12:45', '15:45', '18:00', '19:00'],
+          'Quinta': ['10:45', '12:45', '15:45', '18:00'],
+          'Sexta': ['10:45', '12:45', '15:45', '18:00'],
+          'Sábado': ['10:45', '12:45', '15:45', '18:00', '19:00']
+        }
+      }
+    };
+
+    const puxadas = {
+      'Avestruz': ['Pavão', 'Águia', 'Galo'],
+      'Águia': ['Avestruz', 'Galo', 'Pavão'],
+      'Burro': ['Cavalo', 'Vaca', 'Touro'],
+      'Borboleta': ['Gato', 'Cobra', 'Coelho'],
+      'Cachorro': ['Galo', 'Camelo', 'Macaco'],
+      'Cabra': ['Vaca', 'Carneiro', 'Touro'],
+      'Carneiro': ['Cabra', 'Vaca', 'Touro'],
+      'Camelo': ['Cachorro', 'Urso', 'Avestruz'],
+      'Cobra': ['Borboleta', 'Jacaré', 'Gato'],
+      'Coelho': ['Borboleta', 'Gato', 'Cobra'],
+      'Cavalo': ['Burro', 'Vaca', 'Carneiro'],
+      'Elefante': ['Urso', 'Touro', 'Leão'],
+      'Galo': ['Avestruz', 'Águia', 'Pavão'],
+      'Gato': ['Borboleta', 'Cobra', 'Coelho'],
+      'Jacaré': ['Cobra', 'Porco', 'Borboleta'],
+      'Leão': ['Elefante', 'Tigre', 'Urso'],
+      'Macaco': ['Cachorro', 'Gato', 'Leão'],
+      'Porco': ['Jacaré', 'Vaca', 'Cabra'],
+      'Pavão': ['Avestruz', 'Galo', 'Águia'],
+      'Peru': ['Galo', 'Pavão', 'Avestruz'],
+      'Touro': ['Carneiro', 'Vaca', 'Cabra'],
+      'Tigre': ['Leão', 'Porco', 'Elefante'],
+      'Urso': ['Camelo', 'Elefante', 'Leão'],
+      'Veado': ['Coelho', 'Borboleta', 'Gato'],
+      'Vaca': ['Cabra', 'Carneiro', 'Touro']
+    };
+
+    function mostrar(id) {
+      try {
+        const jogar = document.getElementById('jogar');
+        const palpites = document.getElementById('palpites');
+        if (!jogar || !palpites) {
+          throw new Error('Elementos jogar ou palpites não encontrados');
+        }
+        jogar.style.display = id === 'jogar' ? 'block' : 'none';
+        palpites.style.display = id === 'palpites' ? 'block' : 'none';
+        if (id === 'palpites') {
+          document.getElementById('palpites').innerHTML = ''; // Limpa para evitar conteúdo antigo
+          populateAnimalSelect(); // Garante que o select de animais esteja populado
+        }
+      } catch (e) {
+        console.error('Erro na função mostrar:', e);
+        document.getElementById('palpites').innerHTML = '<p class="error">Erro ao carregar a seção. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
+      }
+    }
+
+    function generateMilhar() {
+      return Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    }
+
+    function getAnimalByMilhar(milhar) {
+      const tens = milhar.slice(-2);
+      return animals.find(animal => animal.tens.includes(tens)) || animals[0];
+    }
+
+    function getNextDrawTime(banca, now) {
+      try {
+        const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+        const today = days[now.getDay()];
+        const schedules = bancas[banca]?.schedules[today];
+        if (!schedules) {
+          console.warn(`Nenhum horário encontrado para ${banca} em ${today}`);
+          return null;
+        }
+
+        const nowTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        const nextTime = schedules.find(time => time > nowTime) || schedules[0];
+        let nextDate = new Date(now);
+
+        if (!schedules.find(time => time > nowTime)) {
+          nextDate.setDate(now.getDate() + 1);
+        }
+
+        const [hours, minutes] = nextTime.split(':');
+        nextDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+        return { time: nextTime, date: nextDate };
+      } catch (e) {
+        console.error('Erro na função getNextDrawTime:', e);
+        return null;
+      }
+    }
+
+    function generatePalpites(banca, drawTime) {
+      try {
+        const key = `palpites_${banca}_${drawTime}`;
+        const stored = localStorage.getItem(key);
+        if (stored) return JSON.parse(stored);
+
+        const palpites = [];
+        for (let i = 0; i < 10; i++) {
+          const milhar = generateMilhar();
+          const animal = getAnimalByMilhar(milhar);
+          palpites.push({ milhar, animal: `${animal.emoji} ${animal.name}` });
+        }
+
+        localStorage.setItem(key, JSON.stringify(palpites));
+        return palpites;
+      } catch (e) {
+        console.error('Erro na função generatePalpites:', e);
+        return [];
+      }
+    }
+
+    function clearExpiredPalpites() {
+      try {
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith('palpites_')) {
+            const [, banca, time] = key.split('_');
+            const now = new Date();
+            const nextDraw = getNextDrawTime(banca, now);
+            if (nextDraw && new Date(nextDraw.date) < now) {
+              localStorage.removeItem(key);
+            }
+          }
+        });
+      } catch (e) {
+        console.error('Erro na função clearExpiredPalpites:', e);
+      }
+    }
+
+    function shareOnWhatsApp(banca, drawTime, palpites) {
+      try {
+        const message = `Palpites para ${banca} - ${drawTime}:\n${palpites.map(p => `${p.milhar} - ${p.animal}`).join('\n')}\n\nJOGUE AGORA PELAS BANCAS:\nFeiticeira VIP: https://feiticeiravip.club/\nÁguia Oficial: https://aguiaoficial.club/\nLoto Cowboy: https://app.sistemabarao.com.br/loto-cowboy?p=SPMqwc1N\nTroia Online: https://app.troiaonline.vip/pr/HTWzNhJP\nEntre no meu grupo: https://chat.whatsapp.com/L4tf40onhBy1riWW8pqkw4`;
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
+      } catch (e) {
+        console.error('Erro na função shareOnWhatsApp:', e);
+      }
+    }
+
+    function displayPalpites() {
+      try {
+        const bancaSelect = document.getElementById('bancaSelect');
+        const palpitesDiv = document.getElementById('palpites');
+        const gerarPalpitesBtn = document.getElementById('gerarPalpites');
+        palpitesDiv.innerHTML = '';
+        clearExpiredPalpites();
+
+        const selectedBanca = bancaSelect.value;
+        if (!selectedBanca) {
+          palpitesDiv.innerHTML = '<p class="error">Por favor, selecione uma banca e clique em "Gerar Palpites".</p>';
+          gerarPalpitesBtn.disabled = true;
+          return;
+        }
+
+        gerarPalpitesBtn.disabled = false;
+        const now = new Date();
+        const nextDraw = getNextDrawTime(selectedBanca, now);
+        if (!nextDraw) {
+          palpitesDiv.innerHTML = '<p class="text-gray-500">Nenhum horário disponível para hoje.</p>';
+          return;
+        }
+
+        const palpites = generatePalpites(selectedBanca, nextDraw.time);
+        if (palpites.length === 0) {
+          palpitesDiv.innerHTML = '<p class="error">Erro ao gerar palpites. Tente novamente.</p>';
+          return;
+        }
+
+        palpitesDiv.innerHTML = `
+          <div>
+            <h3>${selectedBanca} - ${nextDraw.time}</h3>
+            <ul class="mt-3 list-disc pl-5">
+              ${palpites.map(p => `<li class="milhares">${p.milhar} - ${p.animal}</li>`).join('')}
+            </ul>
+            <button id="shareWhatsApp" class="mt-4 green">Compartilhar no WhatsApp</button>
+          </div>
+        `;
+
+        document.getElementById('shareWhatsApp').addEventListener('click', () => {
+          shareOnWhatsApp(selectedBanca, nextDraw.time, palpites);
+        });
+      } catch (e) {
+        console.error('Erro na função displayPalpites:', e);
+        document.getElementById('palpites').innerHTML = '<p class="error">Erro ao carregar os palpites. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
+      }
+    }
+
+    function populateAnimalSelect() {
+      try {
+        const select = document.getElementById('animalSelect');
+        select.innerHTML = '<option value="">Selecione um animal</option>'; // Reseta o select
+        animals.forEach(animal => {
+          const option = document.createElement('option');
+          option.value = animal.name;
+          option.textContent = `${animal.emoji} ${animal.name}`;
+          select.appendChild(option);
+        });
+      } catch (e) {
+        console.error('Erro na função populateAnimalSelect:', e);
+        document.getElementById('puxadaResult').innerHTML = '<p class="error">Erro ao carregar os animais. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
+      }
+    }
+
+    function handlePuxada() {
+      try {
+        const select = document.getElementById('animalSelect');
+        const verPuxada = document.getElementById('verPuxada');
+        const puxadaResult = document.getElementById('puxadaResult');
+
+        select.addEventListener('change', () => {
+          verPuxada.classList.toggle('hidden', !select.value);
+          puxadaResult.innerHTML = '';
+        });
+
+        verPuxada.addEventListener('click', () => {
+          const animal = select.value;
+          if (!animal) {
+            puxadaResult.innerHTML = '<p class="error">Selecione um animal para ver as puxadas.</p>';
+            return;
+          }
+
+          const pulls = puxadas[animal] || [];
+          puxadaResult.innerHTML = `
+            <div>
+              <h3>Puxadas para ${animal}</h3>
+              <ul class="list-disc pl-5 mt-2">
+                ${pulls.length ? pulls.map(pull => `<li>${animals.find(a => a.name === pull).emoji} ${pull}</li>`).join('') : '<li>Nenhuma puxada disponível.</li>'}
+              </ul>
+            </div>
+          `;
+        });
+      } catch (e) {
+        console.error('Erro na função handlePuxada:', e);
+        document.getElementById('puxadaResult').innerHTML = '<p class="error">Erro ao carregar as puxadas. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        populateAnimalSelect();
+        handlePuxada();
+
+        const bancaSelect = document.getElementById('bancaSelect');
+        const gerarPalpitesBtn = document.getElementById('gerarPalpites');
+        bancaSelect.addEventListener('change', () => {
+          document.getElementById('palpites').innerHTML = ''; // Limpa palpites ao mudar banca
+          gerarPalpitesBtn.disabled = !bancaSelect.value; // Desabilita botão se nenhuma banca for selecionada
+        });
+        gerarPalpitesBtn.addEventListener('click', displayPalpites);
+
+        setInterval(() => {
+          if (document.getElementById('palpites').style.display === 'block') {
+            clearExpiredPalpites();
+            if (bancaSelect.value) displayPalpites(); // Atualiza apenas se uma banca estiver selecionada
+          }
+        }, 60000);
+
+        mostrar('jogar');
+      } catch (e) {
+        console.error('Erro na inicialização:', e);
+      }
+    });
+  </script>
+</body>
+</html>
 
 </body>
 </html>
