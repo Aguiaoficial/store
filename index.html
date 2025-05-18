@@ -9,107 +9,164 @@
   <link rel="icon" href="icon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    body, html {
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    body, html {
       font-family: 'Roboto', sans-serif;
       background: #f4f6f8;
       height: 100vh;
       display: flex;
       flex-direction: column;
       color: #1a1a1a;
+      overflow-x: hidden;
     }
     header {
-      background: #ffffff;
+      background: linear-gradient(135deg, #ffffff, #f9fafb);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      padding: 8px 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      height: 40px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
     header img {
-      height: 34px;
+      height: 30px;
       margin-right: 8px;
+      transition: transform 0.2s;
+    }
+    header img:hover {
+      transform: scale(1.1);
     }
     header h1 {
-      font-size: 18px;
-      margin: 0;
+      font-size: 16px;
       font-weight: 700;
       color: #1a1a1a;
+      letter-spacing: 0.5px;
     }
     #main-content {
       flex: 1;
       overflow-y: auto;
-      padding-bottom: 50px;
+      padding-bottom: 60px;
     }
-    #jogar, #palpites {
+    #jogar {
       width: 100%;
       height: 100%;
+      transition: opacity 0.3s ease-in-out;
+    }
+    #palpites-container {
+      display: grid;
+      grid-template-columns: 6fr 4fr;
+      gap: 20px;
+      padding: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    #palpites, #promotores {
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      transition: opacity 0.3s ease-in-out;
+      width: 100%;
+    }
+    #palpites {
+      display: none;
+      opacity: 0;
+    }
+    #palpites.visible {
+      opacity: 1;
+    }
+    #promotores {
+      display: none;
+    }
+    #promotores.visible {
+      opacity: 1;
     }
     iframe {
       width: 100%;
       height: calc(100vh - 100px);
       border: none;
-    }
-    #palpites {
-      display: none;
-      padding: 20px;
-      background: #ffffff;
-      border-radius: 12px;
-      margin: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      display: block;
     }
     footer {
       background: #ffffff;
       display: flex;
       justify-content: space-around;
-      padding: 8px 0;
+      align-items: center;
+      padding: 10px 16px;
       border-top: 1px solid #e0e0e0;
       position: fixed;
       bottom: 0;
       width: 100%;
-      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08);
+      height: 50px;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
     }
     footer button {
       background: none;
       border: none;
-      font-size: 13px;
-      cursor: pointer;
-      color: #444;
+      font-size: 12px;
       font-weight: 500;
-      transition: color 0.2s;
+      color: #444;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     footer button:hover, footer button:active {
       color: #222;
+      background: #f1f3f5;
     }
-    select, button {
-      padding: 10px;
+    footer button:active {
+      transform: scale(0.95);
+    }
+    select, input, button:not(footer button) {
+      padding: 12px;
       border-radius: 8px;
       border: 1px solid #d1d5db;
       background: #f9fafb;
       font-size: 14px;
       width: 100%;
-      margin: 10px 0;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      margin: 8px 0;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
     }
-    select:focus, button:focus {
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23444' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-6-6L3.5 4l4.5 4.5L12.5 4 14 5.5l-6 6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+    input[type="text"], input[type="tel"], input[type="number"] {
+      appearance: none;
+    }
+    select:focus, input:focus, button:focus {
       border-color: #f59e0b;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
       outline: none;
     }
-    button {
+    button:not(footer button) {
       background: #f59e0b;
       color: #fff;
       font-weight: 600;
       cursor: pointer;
       border: none;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
     }
-    button:hover {
+    button:not(footer button):hover {
       background: #d97706;
+    }
+    button:not(footer button):active {
+      transform: scale(0.98);
     }
     button.green {
       background: #10b981;
@@ -120,6 +177,7 @@
     button:disabled {
       background: #d1d5db;
       cursor: not-allowed;
+      transform: none;
     }
     label {
       font-size: 14px;
@@ -130,31 +188,29 @@
     }
     .section {
       margin-bottom: 20px;
-      padding: 15px;
+      padding: 16px;
       background: #f9fafb;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s;
     }
-    .palpite-result, .puxadas {
-      margin: 15px 0;
-      padding: 15px;
-      background: #f9fafb;
+    .section:hover {
+      transform: translateY(-2px);
+    }
+    .palpite-result, .puxadas, .promotores-form {
+      margin: 12px 0;
+      padding: 16px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     }
     .milhares {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-size: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    #puxada-img {
-      margin-top: 15px;
-      width: 100%;
-      max-height: 120px;
-      object-fit: contain;
-      border-radius: 8px;
     }
     h2 {
       color: #f59e0b;
@@ -175,7 +231,7 @@
       font-size: 14px;
     }
     li {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .hidden {
       display: none;
@@ -184,11 +240,80 @@
       color: #ef4444;
       font-size: 14px;
       margin: 10px 0;
+      padding: 10px;
+      background: #fef2f2;
+      border-radius: 6px;
     }
     .loading {
       font-size: 14px;
       color: #374151;
       margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .loading::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f59e0b;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #palpites-container {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      #palpites, #promotores {
+        max-width: 100%;
+      }
+      header {
+        padding: 6px 12px;
+      }
+      header img {
+        height: 28px;
+      }
+      header h1 {
+        font-size: 14px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      h3 {
+        font-size: 15px;
+      }
+      select, input, button:not(footer button) {
+        font-size: 13px;
+        padding: 10px;
+      }
+      footer {
+        padding: 8px 12px;
+      }
+      footer button {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+      iframe {
+        height: calc(100vh - 90px);
+      }
+    }
+    @media (max-width: 400px) {
+      footer {
+        flex-direction: column;
+        height: auto;
+        padding: 12px;
+        gap: 8px;
+      }
+      footer button {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -202,40 +327,75 @@
     <div id="jogar">
       <iframe src="https://app.tigersclub.vip/pr/hOprBfRL" loading="lazy"></iframe>
     </div>
-    <div id="palpites">
-      <div class="section">
-        <h2>Gerar Palpites</h2>
-        <label for="bancaSelect">Escolha a Banca:</label>
-        <select id="bancaSelect">
-          <option value="">Selecione uma banca</option>
-          <option value="PT Rio">PT Rio</option>
-          <option value="Look GO">Look GO</option>
-          <option value="Nacional">Nacional</option>
-          <option value="Maluca BA">Maluca BA</option>
-          <option value="Lotep">Lotep</option>
-        </select>
-        <button id="gerarPalpites" disabled>Gerar Palpites</button>
-        <div class="palpite-result" id="palpiteOutput"></div>
+    <div id="palpites-container">
+      <div id="palpites">
+        <div class="section">
+          <h2>Gerar Palpites</h2>
+          <label for="bancaSelect">Escolha a Banca:</label>
+          <select id="bancaSelect">
+            <option value="">Selecione uma banca</option>
+            <option value="PT Rio">PT Rio</option>
+            <option value="Look GO">Look GO</option>
+            <option value="Nacional">Nacional</option>
+            <option value="Maluca BA">Maluca BA</option>
+            <option value="Lotep">Lotep</option>
+          </select>
+          <button id="gerarPalpites" disabled>Gerar Palpites</button>
+          <div class="palpite-result" id="palpiteOutput"></div>
+        </div>
+        <div class="section">
+          <h2>Consultar Puxadas</h2>
+          <label for="animalSelect">Escolha um Animal:</label>
+          <select id="animalSelect">
+            <option value="">Selecione um animal</option>
+          </select>
+          <button id="verPuxada" class="hidden">Ver Puxadas</button>
+          <div class="puxadas" id="puxadaResult"></div>
+        </div>
       </div>
-
-      <div class="section">
-        <h2>Consultar Puxadas</h2>
-        <label for="animalSelect">Escolha um Animal:</label>
-        <select id="animalSelect">
-          <option value="">Selecione um animal</option>
-        </select>
-        <button id="verPuxada" class="hidden">Ver Puxadas</button>
-        <div class="puxadas" id="puxadaResult"></div>
+      <div id="promotores">
+        <div class="section">
+          <h2>Promotores</h2>
+          <p>Quer ser nosso promotor? Preencha abaixo</p>
+          <div class="promotores-form">
+            <label for="promotorName">Nome:</label>
+            <input type="text" id="promotorName" required placeholder="Seu nome completo" />
+            <label for="promotorPhone">Telefone:</label>
+            <input type="tel" id="promotorPhone" required placeholder="+5583999999999" pattern="\+55[0-9]{10,11}" />
+            <label for="promotorExperience">Tempo de Experiência (anos):</label>
+            <input type="number" id="promotorExperience" required min="0" placeholder="Ex: 2" />
+            <button id="enviarPromotor">Enviar</button>
+          </div>
+        </div>
       </div>
-      <img src="pa.png" id="puxada-img" alt="Puxada" onerror="console.warn('Falha ao carregar pa.png'); this.src='https://picsum.photos/120';" />
     </div>
   </div>
 
   <footer>
-    <button onclick="window.open('https://wa.me/5583991177252?text=Suporte%2C+preciso+de+ajuda', '_blank')">Fale com o Suporte</button>
-    <button onclick="window.open('https://app.tigersclub.vip/pr/hOprBfRL', '_blank')">Cassino</button>
-    <button onclick="mostrar('jogar')">Jogar</button>
-    <button onclick="mostrar('palpites')">Palpites</button>
+    <button onclick="window.open('https://wa.me/5583991177252?text=Suporte%2C+preciso+de+ajuda', '_blank')">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M13.6 2.4A8 8 0 0 0 0 8c0 1.8.6 3.5 1.7 4.9L1 15l2.1-.7A8 8 0 0 0 8 16c4.4 0 8-3.6 8-8a8 8 0 0 0-2.4-5.6zM8 14.5a6.5 6.5 0 0 1-3.7-1.1l-.3-.1-.7.2-1.2.4.4-1.2.2-.7-.1-.3A6.5 6.5 0 0 1 8 1.5a6.5 6.5 0 0 1 6.5 6.5A6.5 6.5 0 0 1 8 14.5zm2.3-4.7c-.1 0-.2 0-.3-.1-.2-.1-1-.5-1.2-.6-.2-.1-.4-.2-.5-.3-.2-.1-.3-.2-.5-.4-.1-.2-.2-.4-.3-.6-.1-.2-.1-.4-.2-.5 0-.1-.1-.2-.2-.3-.1-.1-.2-.2-.3-.3-.1-.1-.2-.2-.3-.3-.1-.1-.2-.2-.1-.3.1-.1.2-.3.3-.4.1-.1.2-.2.3-.3.1-.1.1-.2.1-.3s0-.2-.1-.3c-.1-.1-.2-.3-.3-.4-.1-.1-.2-.2-.4-.2H6.8c-.2 0-.4 0-.5.1-.1 0-.2.1-.3.2-.1.1-.2.2-.3.3-.1.2-.2.4-.2.6 0 .2 0 .4.1.6.1.2.2.4.3.6.1.2.3.4.5.6.2.2.4.4.7.6.3.2.6.4 1 .5.3.1.7.2 1.1.2h.3c.2 0 .4-.1.6-.2.2-.1.3-.2.4-.4.1-.2.1-.4.1-.6 0-.2-.1-.3-.2-.4z"/>
+      </svg>
+      Suporte
+    </button>
+    <button onclick="window.open('https://app.tigersclub.vip/pr/hOprBfRL', '_blank')">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13zM8 4a1 1 0 0 0-1 1v3.6l-2.3-2.3a1 1 0 0 0-1.4 1.4l3 3a1 1 0 0 0 1.4 0l3-3a1 1 0 0 0-1.4-1.4L9 8.6V5a1 1 0 0 0-1-1z"/>
+      </svg>
+      Cassino
+    </button>
+    <button onclick="mostrar('jogar')">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13zM6 5l4 3-4 3V5z"/>
+      </svg>
+      Jogar
+    </button>
+    <button onclick="mostrar('palpites')">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13zM8 4a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1z"/>
+      </svg>
+      Palpites
+    </button>
   </footer>
 
   <script>
@@ -359,21 +519,26 @@
         try {
           const jogar = document.getElementById('jogar');
           const palpites = document.getElementById('palpites');
-          if (!jogar || !palpites) {
-            console.error('Elementos jogar ou palpites não encontrados');
+          const promotores = document.getElementById('promotores');
+          if (!jogar || !palpites || !promotores) {
+            console.error('Elementos jogar, palpites ou promotores não encontrados');
             document.body.innerHTML = '<p class="error">Erro ao carregar a página. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
             return;
           }
           jogar.style.display = id === 'jogar' ? 'block' : 'none';
           palpites.style.display = id === 'palpites' ? 'block' : 'none';
+          promotores.style.display = id === 'palpites' ? 'block' : 'none';
+          palpites.classList.toggle('visible', id === 'palpites');
+          promotores.classList.toggle('visible', id === 'palpites');
           if (id === 'palpites') {
             const animalSelect = document.getElementById('animalSelect');
             const bancaSelect = document.getElementById('bancaSelect');
             const palpiteOutput = document.getElementById('palpiteOutput');
             if (animalSelect && bancaSelect && palpiteOutput) {
-              palpiteOutput.innerHTML = ''; // Limpa apenas a saída de palpites
+              palpiteOutput.innerHTML = '';
               populateAnimalSelect();
               handlePuxada();
+              setupPromotorForm();
             } else {
               console.error('Elementos animalSelect, bancaSelect ou palpiteOutput não encontrados');
               palpites.innerHTML = '<p class="error">Erro ao carregar a seção. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
@@ -607,6 +772,67 @@
           const puxadaResult = document.getElementById('puxadaResult');
           if (puxadaResult) {
             puxadaResult.innerHTML = '<p class="error">Erro ao carregar as puxadas. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
+          }
+        }
+      }
+
+      function setupPromotorForm() {
+        console.log('setupPromotorForm: Iniciando');
+        try {
+          const form = document.getElementById('promotores');
+          const nameInput = document.getElementById('promotorName');
+          const phoneInput = document.getElementById('promotorPhone');
+          const experienceInput = document.getElementById('promotorExperience');
+          const submitButton = document.getElementById('enviarPromotor');
+
+          if (!form || !nameInput || !phoneInput || !experienceInput || !submitButton) {
+            throw new Error('Elementos do formulário de promotores não encontrados');
+          }
+
+          submitButton.addEventListener('click', () => {
+            console.log('enviarPromotor click');
+            try {
+              const name = nameInput.value.trim();
+              const phone = phoneInput.value.trim();
+              const experience = experienceInput.value.trim();
+
+              if (!name || !phone || !experience) {
+                form.innerHTML += '<p class="error">Por favor, preencha todos os campos.</p>';
+                return;
+              }
+
+              if (!phone.match(/\+55[0-9]{10,11}/)) {
+                form.innerHTML += '<p class="error">Telefone inválido. Use o formato +5583999999999.</p>';
+                return;
+              }
+
+              if (parseInt(experience) < 0) {
+                form.innerHTML += '<p class="error">Experiência deve ser um número positivo.</p>';
+                return;
+              }
+
+              const message = `Novo promotor:\nNome: ${name}\nTelefone: ${phone}\nExperiência: ${experience} anos`;
+              const encodedMessage = encodeURIComponent(message);
+              window.open(`https://api.whatsapp.com/send?phone=5583991177252&text=${encodedMessage}`, '_blank');
+
+              nameInput.value = '';
+              phoneInput.value = '';
+              experienceInput.value = '';
+              form.innerHTML += '<p class="success">Dados enviados com sucesso!</p>';
+              setTimeout(() => {
+                const successMsg = form.querySelector('.success');
+                if (successMsg) successMsg.remove();
+              }, 3000);
+            } catch (e) {
+              console.error('Erro ao enviar formulário de promotores:', e);
+              form.innerHTML += '<p class="error">Erro ao enviar os dados. Tente novamente.</p>';
+            }
+          });
+        } catch (e) {
+          console.error('Erro na função setupPromotorForm:', e);
+          const promotores = document.getElementById('promotores');
+          if (promotores) {
+            promotores.innerHTML = '<p class="error">Erro ao carregar o formulário. Contate o suporte: <a href="https://wa.me/5583991177252">WhatsApp</a></p>';
           }
         }
       }
